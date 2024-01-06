@@ -2,6 +2,7 @@ import { Client } from 'tmi.js';
 import dotenv from 'dotenv';
 import { channel } from './config.json';
 import { BanchoClient } from 'bancho.js';
+import { auth } from 'osu-api-extended';
 
 dotenv.config();
 
@@ -29,6 +30,12 @@ client.on('connected', async () => {
     console.log('Bancho: connected');
   } catch (error) {
     console.log(`Bancho: connection error\n${error}`);
+  }
+  try {
+    await auth.login(Number(process.env.OSU_APP_ID), process.env.OSU_SECRET as string, ['public']);
+    console.log('osu! api: connected');
+  } catch (error) {
+    console.log(`osu! api: connection error\n${error}`);
   }
 });
 
