@@ -16,18 +16,25 @@ export default (client: Client) => {
     const commandName = split[split.length - 1].replace(ext, '');
 
     commands[commandName.toLowerCase()] = commandFile;
+
+    if (commandFile.aliases && commandFile.aliases.length > 0) {
+      for (const alias of commandFile.aliases) {
+        commands[alias.toLowerCase()] = commandFile;
+      }
+    }
   }
 
-  client.on('message', (channel, userstate, message, self) => {
+  client.on('message', async (channel, userstate, message, self) => {
     if (self) return;
     if (!message.startsWith(prefix)) return;
 
     const args = message.slice(prefix.length).split(' ');
     const commandName = args.shift()!.toLowerCase();
+    const command = commands[commandName];
 
-    if (!commands[commandName]) return;
+    if (!command) return;
     try {
-      commands[commandName].callback(message, ...args, userstate);
+      await command.callback(message, ...args, userstate);
     } catch (error) {
       console.error(error);
     }

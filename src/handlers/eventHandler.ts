@@ -18,8 +18,6 @@ export default (client: Client) => {
     events[eventName] = [...events[eventName], eventFile];
   }
 
-  console.log(events);
-
   for (const eventName of Object.keys(events)) {
     client.on(eventName as keyof Events, async () => {
       for (const func of events[eventName]) {
