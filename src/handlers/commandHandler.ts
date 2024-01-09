@@ -1,11 +1,12 @@
 import { Client } from 'tmi.js';
 import getFiles from './getFiles';
 import { prefix } from '../config.json';
+import path from 'path';
 
 export default (client: Client) => {
   const ext = '.ts';
   const commands: { [key: string]: any } = {};
-  const commandFiles = getFiles('src/commands', ext);
+  const commandFiles = getFiles(path.join(__dirname, '..', 'commands'), ext);
 
   for (const command of commandFiles) {
     let commandFile = require(command);

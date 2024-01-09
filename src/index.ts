@@ -21,9 +21,12 @@ export const bancho = new BanchoClient({
 });
 
 client.on('connected', async () => {
-  let handler = require('./handlers/commandHandler');
-  if (handler.default) handler = handler.default;
-  handler(client);
+  let commandHandler = require('./handlers/commandHandler');
+  let eventHandler = require('./handlers/eventHandler');
+  if (commandHandler.default) commandHandler = commandHandler.default;
+  if (eventHandler.default) eventHandler = eventHandler.default;
+  commandHandler(client);
+  eventHandler(client);
   console.log('TMI: connected');
   try {
     await bancho.connect();
