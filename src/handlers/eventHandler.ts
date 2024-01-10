@@ -19,10 +19,10 @@ export default (client: Client) => {
   }
 
   for (const eventName of Object.keys(events)) {
-    client.on(eventName as keyof Events, async () => {
-      for (const func of events[eventName]) {
+    client.on(eventName as keyof Events, async (...args) => {
+      for (const event of events[eventName]) {
         try {
-          await func();
+          await event.callback(...(args as any[]));
         } catch (error) {
           console.error(error);
         }

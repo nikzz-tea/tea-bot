@@ -1,11 +1,10 @@
 import client from '..';
 import fetchGosuData from '../utils/fetchGosuData';
-import { channel } from '../config.json';
 
 export default {
-  callback: async () => {
+  callback: async (channel: string) => {
     const data = await fetchGosuData();
     if (!data) return client.say(channel, 'no data');
-    client.say(channel, data.settings.folders.skin);
+    await client.say(channel, data.settings.folders.skin);
   },
 };

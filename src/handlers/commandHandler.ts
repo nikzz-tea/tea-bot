@@ -34,7 +34,7 @@ export default (client: Client) => {
 
     if (!command) return;
     try {
-      await command.callback(message, ...args, userstate);
+      await command.callback(channel, message, ...args, userstate);
     } catch (error) {
       console.error(error);
     }
