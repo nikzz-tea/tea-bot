@@ -7,7 +7,7 @@ export default {
   callback: async ({ channel, userstate, args }: CommandProps) => {
     if (args.length < 2) return;
     const name = args[0];
-    const content = args.slice(1).join();
+    const content = args.slice(1).join(' ');
     await Commands.upsert({
       name,
       content,
