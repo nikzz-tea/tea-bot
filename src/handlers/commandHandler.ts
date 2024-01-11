@@ -33,6 +33,7 @@ export default (client: Client) => {
     const command = commands[commandName];
 
     if (!command) return;
+    if (command.modOnly && !(userstate.mod || userstate.badges?.broadcaster)) return;
     try {
       await command.callback({ channel, message, userstate, args });
     } catch (error) {

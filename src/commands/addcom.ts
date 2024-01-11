@@ -3,8 +3,8 @@ import { Commands } from '../database/models';
 import CommandProps from '../models/commandProps';
 
 export default {
+  modOnly: true,
   callback: async ({ channel, userstate, args }: CommandProps) => {
-    // if (!userstate.mod) return;
     if (args.length < 2) return;
     const name = args[0];
     const content = args.slice(1).join();
