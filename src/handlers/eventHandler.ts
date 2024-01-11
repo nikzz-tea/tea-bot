@@ -1,5 +1,5 @@
 import { Client, Events } from 'tmi.js';
-import getFiles from './getFiles';
+import getFiles from '../utils/getFiles';
 import path from 'path';
 
 export default (client: Client) => {
@@ -20,9 +20,9 @@ export default (client: Client) => {
 
   for (const eventName of Object.keys(events)) {
     client.on(eventName as keyof Events, async (...args) => {
-      for (const event of events[eventName]) {
+      for (const func of events[eventName]) {
         try {
-          await event.callback(...(args as any[]));
+          await func(...(args as any[]));
         } catch (error) {
           console.error(error);
         }

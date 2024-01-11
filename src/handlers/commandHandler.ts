@@ -1,5 +1,5 @@
 import { Client } from 'tmi.js';
-import getFiles from './getFiles';
+import getFiles from '../utils/getFiles';
 import { prefix } from '../config.json';
 import path from 'path';
 
