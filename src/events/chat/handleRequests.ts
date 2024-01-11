@@ -1,7 +1,8 @@
 import { ChatUserstate } from 'tmi.js';
-import client, { bancho } from '../..';
 import parseMapId from '../../utils/parseMapId';
 import { v2 } from 'osu-api-extended';
+import bancho from '../../api/bancho';
+import client from '../../api/twitch';
 
 export default async (channel: string, user: ChatUserstate, message: string, self: boolean) => {
   if (self) return;

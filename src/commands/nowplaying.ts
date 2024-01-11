@@ -1,4 +1,4 @@
-import client from '..';
+import client from '../api/twitch';
 import fetchGosuData from '../utils/fetchGosuData';
 
 export default {
