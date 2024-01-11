@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '.';
 
 export const Commands = sequelize.define(
@@ -10,12 +10,32 @@ export const Commands = sequelize.define(
   { timestamps: false, indexes: [{ unique: true, fields: ['name'] }] },
 );
 
-export const Users = sequelize.define(
-  'users',
+interface UserAttributes {
+  id: string;
+  exp: number;
+  lvl: number;
+}
+
+export class Users extends Model<UserAttributes> implements UserAttributes {
+  public id!: string;
+  public exp!: number;
+  public lvl!: number;
+}
+
+Users.init(
   {
-    id: { primaryKey: true, type: DataTypes.STRING },
-    exp: DataTypes.NUMBER,
-    lvl: DataTypes.NUMBER,
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    exp: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    lvl: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+    },
   },
-  { timestamps: false },
+  { sequelize, modelName: 'users', timestamps: false },
 );
