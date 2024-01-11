@@ -3,6 +3,7 @@ import bancho from './api/bancho';
 import client from './api/twitch';
 import { readdirSync } from 'fs';
 import path from 'path';
+import sequelize from './database';
 
 client.on('connected', async () => {
   for (const handlerFile of readdirSync(path.join(__dirname, 'handlers'))) {
@@ -10,6 +11,7 @@ client.on('connected', async () => {
     if (handler.default) handler = handler.default;
     handler(client);
   }
+  await sequelize.sync();
   console.log('TMI: connected');
   try {
     await bancho.connect();
