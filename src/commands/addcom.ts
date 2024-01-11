@@ -1,5 +1,6 @@
 import client from '../api/twitch';
 import { Commands } from '../database/models';
+import CommandObject from '../models/commandObject';
 import CommandProps from '../models/commandProps';
 
 export default {
@@ -14,4 +15,4 @@ export default {
     });
     await client.say(channel, `Command "${name}" has been added`);
   },
-};
+} as CommandObject;
