@@ -15,7 +15,7 @@ export default async (
   if (parseMapId(message)) return;
   const [user] = await Users.findOrCreate({ where: { id: userstate['user-id'] } });
   await user.increment('exp', { by: 10 });
-  if (user.exp < 10 + 500 * user.lvl) return;
+  if (user.exp < 500 + 100 * user.lvl) return;
   await user.increment('lvl');
   await user.update({ exp: 0 });
   client.say(channel, `${userstate['display-name']} just reached level ${user.lvl + 1}! peepoClap`);
