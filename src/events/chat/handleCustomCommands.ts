@@ -6,15 +6,10 @@ import client from '../../api/twitch';
 export default async (channel: string, user: ChatUserstate, message: string, self: boolean) => {
   if (self) return;
   if (!message.startsWith(prefix)) return;
-  const commands = await Commands.findAll({
-    attributes: ['name'],
+  const name = message.slice(prefix.length).split(' ')[0];
+  const command: any = await Commands.findOne({
+    where: { name },
   });
-  const keys = commands.map((command) => command.get('name')) as string[];
-  for (const key of keys) {
-    if (message.toLowerCase() !== `${prefix}${key.toLowerCase()}`) return;
-    const obj = await Commands.findOne({ where: { name: key } });
-    if (!obj) return;
-    const content = obj.get('content') as string;
-    client.say(channel, content);
-  }
+  if (!command) return;
+  client.say(channel, command.content);
 };
