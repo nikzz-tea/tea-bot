@@ -13,9 +13,9 @@ export default async (channel: string, user: ChatUserstate, message: string, sel
   bancho
     .getSelf()
     .sendMessage(
-      `${user['display-name']}: [${map.url} ${map.beatmapset.artist} - ${map.beatmapset.title} [${
-        map.version
-      }]] ${map.difficulty_rating.toFixed(2)}* ${map.bpm} BPM`,
+      `${user['display-name']}: [https://osu.ppy.sh/b/${id} ${map.beatmapset.artist} - ${
+        map.beatmapset.title
+      } [${map.version}]] ${map.difficulty_rating.toFixed(2)}* ${map.bpm} BPM`,
     );
   client.say(
     channel,
