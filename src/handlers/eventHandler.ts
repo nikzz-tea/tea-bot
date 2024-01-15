@@ -3,9 +3,8 @@ import getFiles from '../utils/getFiles';
 import path from 'path';
 
 export default (client: Client) => {
-  const ext = '.ts';
   const events: { [key: string]: any } = {};
-  const eventFiles = getFiles(path.join(__dirname, '..', 'events'), ext);
+  const eventFiles = getFiles(path.join(__dirname, '..', 'events'));
 
   for (const event of eventFiles) {
     let eventFile = require(event);

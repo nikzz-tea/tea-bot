@@ -1,13 +1,13 @@
 import { Dirent, readdirSync } from 'fs';
 
-const getFiles = (dir: string, ext: string): string[] => {
+const getFiles = (dir: string): string[] => {
   const files: Dirent[] = readdirSync(dir, { withFileTypes: true });
   let commandFiles: string[] = [];
 
   for (const file of files) {
     if (file.isDirectory()) {
-      commandFiles = [...commandFiles, ...getFiles(`${dir}/${file.name}`, ext)];
-    } else if (file.name.endsWith(ext)) {
+      commandFiles = [...commandFiles, ...getFiles(`${dir}/${file.name}`)];
+    } else if (file.isFile()) {
       commandFiles.push(`${dir}/${file.name}`);
     }
   }
