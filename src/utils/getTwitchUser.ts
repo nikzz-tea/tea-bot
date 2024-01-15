@@ -1,5 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
+import TwitchUser from '../models/twitchUserData';
 
 dotenv.config();
 
@@ -11,7 +12,7 @@ export default async (login: string) => {
     params: { client_id, client_secret, grant_type: 'client_credentials' },
   });
   const token = tokenResponse.data.access_token;
-  const { data } = await axios.get(`https://api.twitch.tv/helix/users`, {
+  const { data } = await axios.get<TwitchUser>(`https://api.twitch.tv/helix/users`, {
     params: { login },
     headers: {
       'Client-ID': client_id,
@@ -19,5 +20,5 @@ export default async (login: string) => {
     },
   });
   if (!data.data.length) return undefined;
-  return data.data[0].id;
+  return data.data[0];
 };

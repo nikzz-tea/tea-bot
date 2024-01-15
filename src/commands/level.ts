@@ -1,16 +1,16 @@
 import client from '../api/twitch';
 import { Users } from '../database/models';
 import CommandObject from '../models/commandObject';
-import getIdByUsername from '../utils/getIdByUsername';
+import getIdByUsername from '../utils/getTwitchUser';
 
 export default {
   aliases: ['lvl'],
   callback: async ({ channel, userstate, args }) => {
     let { id, name } = { id: userstate['user-id'], name: userstate['display-name'] };
     if (args.length) {
-      const mentionedId = await getIdByUsername(args[0]);
-      if (mentionedId) {
-        id = mentionedId;
+      const mentionedUser = await getIdByUsername(args[0]);
+      if (mentionedUser) {
+        id = mentionedUser.id;
         name = args[0];
       }
     }
